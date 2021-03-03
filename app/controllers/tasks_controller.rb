@@ -38,6 +38,21 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "Task was successfully destroyed."
   end
 
+  def assign
+    AssignOpenTasks.new.call
+
+    redirect_to tasks_url, notice: "All open tasks were assigned"
+  end
+
+  def my
+    if current_user
+      @tasks = FetchUserTasks.new(current_user).call
+      render :index
+    else
+      redirect_to tasks_url, alert: 'Use user_id query param to authenticate'
+    end
+  end
+
   private
 
   def set_task

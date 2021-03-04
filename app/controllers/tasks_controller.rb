@@ -16,9 +16,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    result, @task = CreateTask.new(attributes: task_params).call
 
-    if @task.save
+    if result
       redirect_to @task, notice: "Task was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(task_params)
+    if UpdateTask.new(task: @task, attributes: task_params).call
       redirect_to @task, notice: "Task was successfully updated."
     else
       render :edit, status: :unprocessable_entity

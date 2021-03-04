@@ -1,7 +1,8 @@
 class AssignOpenTasks
   def call
     Task.open.find_each do |task|
-      task.update!(assignee_id: available_users.sample.id)
+      attributes = { assignee_id: available_users.sample.id }
+      UpdateTask.new(task: task, attributes: attributes).call
     end
   end
 

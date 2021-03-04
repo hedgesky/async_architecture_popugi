@@ -9,7 +9,7 @@ class UpdateTask
     assignee_changed = @task.assignee_id_changed?
 
     if @task.save
-      NotifyAssignee.new(task: @task).call if assignee_changed
+      NotifyAssignee.call(task: @task) if assignee_changed
       true
     else
       false

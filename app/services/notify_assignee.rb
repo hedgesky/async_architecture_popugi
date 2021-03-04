@@ -9,4 +9,8 @@ class NotifyAssignee
     Rails.logger.info("Notifying #{user_id} about new task via Slack")
     Rails.logger.info("Notifying #{user_id} about new task via SMS")
   end
+
+  def self.call(...)
+    new(...).call
+  end
 end

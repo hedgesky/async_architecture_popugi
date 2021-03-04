@@ -7,7 +7,7 @@ class CreateTask
     task = Task.new(@attributes)
 
     if task.save
-      NotifyAssignee.new(task: task).call if task.assignee_id
+      NotifyAssignee.call(task: task) if task.assignee_id.present?
       [true, task]
     else
       [false, task]

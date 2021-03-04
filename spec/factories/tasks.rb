@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :task do
     description { "MyText" }
-    state { 1 }
+    state { :open }
     assignee_id { "MyString" }
   end
 end

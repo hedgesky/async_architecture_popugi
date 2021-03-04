@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tasks</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <br />
+    <br />
+    <br />
+
+    <hr />
+
+    <h2>Actions</h2>
+    <p>
+      <%= link_to 'Assign tasks', assign_tasks_path, method: :post %>
+    </p>
+    <p>
+      <%= link_to 'My tasks', my_tasks_path %>
+    </p>
+  </body>
+</html>

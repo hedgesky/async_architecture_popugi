@@ -15,7 +15,8 @@
 | Actor | Command | Event | Requirement |
 |-|-|-|-|
 | Account[Admin, Accountant] | LogInToAccounting | LoggedInToAccounting | Аккаунтинг должен быть ... доступным только для администраторов и бухгалтеров. |
-| TaskAssigned event | CreateAuditLogEntry | AuditLogEntryCreated | У сотрудника появилась новая задача — rand(-10..-20)$ |
+| TaskAssigned event | SetTaskCost | TaskCostSet | У сотрудника появилась новая задача — rand(-10..-20)$ |
+| TaskCostSet event | CreateAuditLogEntry | AuditLogEntryCreated | У сотрудника появилась новая задача — rand(-10..-20)$ |
 | TaskCompleted event | CreateAuditLogEntry | AuditLogEntryCreated | Cотрудник выполнил задачу — rand(20..40)$ |
 | AuditLogEntryCreated event  | UpdateEmployeeBalance | EmployeeBalanceUpdated  | У каждого из сотрудников должен быть свой счет, который показывает, сколько за сегодня он получил денег |
 | DayHasPassed event | CalculateDailyEarnings | DailyEarningsCalculated | В конце дня необходимо считать, сколько денег сотрудник получил за рабочий день |

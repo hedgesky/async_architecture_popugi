@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       post :assign
       get :my
     end
+    member do
+      post :complete
+    end
   end
 
   get :login, to: 'fake_auth#login'

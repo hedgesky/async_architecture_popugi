@@ -4,6 +4,6 @@ class FetchUserTasks
   end
 
   def call
-    Task.where(assignee_id: @user.id)
+    Task.where(assignee_id: @user.id).order(:state)
   end
 end

@@ -16,16 +16,6 @@
     <%= form.text_area :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.select :state, options_for_select([["Open", "open"], ["Done", "done"]]) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :assignee_id %>
-    <%= form.text_field :assignee_id %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>

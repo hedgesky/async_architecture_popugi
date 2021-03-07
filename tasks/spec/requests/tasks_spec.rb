@@ -1,7 +1,7 @@
 RSpec.describe "/tasks", type: :request do
   describe "POST /assign" do
     it "assigns all the open tasks to random users" do
-      tasks = create_list(:task, 3, assignee_id: nil, state: :open)
+      tasks = create_list(:task, 3)
       post assign_tasks_url
       tasks.each do |task|
         expect(task.reload.assignee_id).to be_present
@@ -12,6 +12,12 @@ RSpec.describe "/tasks", type: :request do
       task = create(:task, state: :done)
       expect { post assign_tasks_url }.not_to change { task.reload.updated_at }
     end
+
+    it 'notifies user' do
+      tasks = create_list(:task, 3)
+      expect(NotifyAssignee).to receive(:call).exactly(3).times
+      post assign_tasks_url
+    end
   end
 
   describe "POST /create" do
@@ -21,13 +27,6 @@ RSpec.describe "/tasks", type: :request do
           post tasks_url, params: { task: attributes_for(:task) }
           expect(response).to redirect_to(task_url(Task.last))
         }.to change(Task, :count).by(1)
-      end
-
-      it 'notifies user' do
-        expect(NotifyAssignee).to receive(:call) do |task:|
-          expect(task.assignee_id).to eq 'fake_id'
-        end
-        post tasks_url, params: { task: { assignee_id: 'fake_id', description: 'asd' } }
       end
     end
 
@@ -45,23 +44,15 @@ RSpec.describe "/tasks", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        { description: 'new text', assignee_id: 'another' }
+        { description: 'new text' }
       }
 
       it "updates the requested task" do
         task = create(:task)
         patch task_url(task), params: { task: new_attributes }
         task.reload
-        expect(task).to have_attributes(description: 'new text', assignee_id: 'another')
+        expect(task).to have_attributes(description: 'new text')
         expect(response).to redirect_to(task_url(task))
-      end
-
-      it 'notifies user' do
-        created_task = create(:task)
-        expect(NotifyAssignee).to receive(:call) do |task:|
-          expect(task.assignee_id).to eq 'another'
-        end
-        patch task_url(created_task), params: { task: new_attributes }
       end
     end
 
@@ -71,6 +62,14 @@ RSpec.describe "/tasks", type: :request do
         patch task_url(task), params: { task: { description: '' } }
         expect(response.code).to eq '422'
       end
+    end
+  end
+
+  describe "POST /complete" do
+    it "marks task as complete" do
+      task = create(:task)
+      post complete_task_url(task)
+      expect(task.reload).to be_done
     end
   end
 

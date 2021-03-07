@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ show edit update destroy complete ]
 
   def index
     @tasks = Task.order(created_at: :desc)
@@ -33,6 +33,11 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    UpdateTask.new(task: @task, attributes: { state: :done }).call
+    redirect_to my_tasks_url, notice: "Task marked as done"
+  end
+
   def destroy
     @task.destroy
     redirect_to tasks_url, notice: "Task was successfully destroyed."
@@ -47,7 +52,6 @@ class TasksController < ApplicationController
   def my
     if current_user
       @tasks = FetchUserTasks.new(current_user).call
-      render :index
     else
       redirect_to tasks_url, alert: 'Use user_id query param to authenticate'
     end
@@ -60,6 +64,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:description, :state, :assignee_id)
+    params.require(:task).permit(:description)
   end
 end

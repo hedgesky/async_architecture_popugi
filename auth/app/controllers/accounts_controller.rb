@@ -14,9 +14,9 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.new(account_params)
+    result, @account = CreateAccount.call(attributes: account_params)
 
-    if @account.save
+    if result
       redirect_to accounts_url, notice: 'Account was successfully created.'
     else
       render :new
@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
   end
 
   def update
-    if @account.update(account_params)
+    if UpdateAccount.call(account: @account, attributes: account_params)
       redirect_to accounts_url, notice: 'Account was successfully updated.'
     else
       render :edit
@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    @account.destroy
+    DeleteAccount.call(account: @account)
     redirect_to accounts_url, notice: 'Account was successfully destroyed.'
   end
 

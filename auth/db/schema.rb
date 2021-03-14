@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_14_210748) do
+ActiveRecord::Schema.define(version: 2021_03_14_220438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "email"
+    t.string "role", default: "common"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_accounts_on_email", unique: true
+  end
+
+  create_table "auth_admin_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -24,8 +32,8 @@ ActiveRecord::Schema.define(version: 2021_03_14_210748) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_auth_admin_accounts_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_auth_admin_accounts_on_reset_password_token", unique: true
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|

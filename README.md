@@ -4,5 +4,6 @@
 
 - [Event storming](events.md)
 - [Диаграмма сущностей](entities.png)
+- [Диаграмма сервисов](services.png)
 
 ![](popug.jpg)

@@ -6,6 +6,7 @@ development:
   pool: 5
   username: postgres
   password: <%= ENV['AUTH_PASSWORD'] %>
+  port: 5433
 
 test:
   adapter: postgresql
@@ -15,3 +16,4 @@ test:
   pool: 5
   username: postgres
   password: <%= ENV['AUTH_PASSWORD'] %>
+  port: 5433

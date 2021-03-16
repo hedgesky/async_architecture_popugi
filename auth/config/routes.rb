@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :auth_admin_accounts
+  resources :accounts, except: :show
+
+  use_doorkeeper
+
+  root to: 'accounts#index'
 end

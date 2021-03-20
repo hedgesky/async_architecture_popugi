@@ -24,7 +24,9 @@ class AccountsController < ApplicationController
   end
 
   def update
-    if UpdateAccount.call(account: @account, attributes: account_params)
+    attrs = account_params
+    attrs.delete(:password) if attrs[:password].blank?
+    if UpdateAccount.call(account: @account, attributes: attrs)
       redirect_to accounts_url, notice: 'Account was successfully updated.'
     else
       render :edit
@@ -39,8 +41,8 @@ class AccountsController < ApplicationController
   private
 
   def authorize!
-    unless current_auth_admin_account
-      redirect_to new_auth_admin_account_session_path
+    unless current_account&.admin?
+      redirect_to new_account_session_path
       return
     end
 
@@ -52,6 +54,6 @@ class AccountsController < ApplicationController
   end
 
   def account_params
-    params.require(:account).permit(:email, :role)
+    params.require(:account).permit(:email, :role, :password)
   end
 end

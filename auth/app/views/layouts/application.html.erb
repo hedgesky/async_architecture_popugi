@@ -12,5 +12,12 @@
 
   <body>
     <%= yield %>
+
+    <br>
+    <br>
+
+    <% if current_account&.admin? %>
+      <%= link_to 'Apps', oauth_applications_path %>
+    <% end %>
   </body>
 </html>

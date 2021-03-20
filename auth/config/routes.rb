@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :auth_admin_accounts
+  devise_for :accounts
   resources :accounts, except: :show
 
   use_doorkeeper

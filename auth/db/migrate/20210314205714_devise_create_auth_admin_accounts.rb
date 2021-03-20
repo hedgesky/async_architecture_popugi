@@ -2,7 +2,7 @@
 
 class DeviseCreateAuthAdminAccounts < ActiveRecord::Migration[6.1]
   def change
-    create_table :auth_admin_accounts, id: :uuid do |t|
+    create_table :accounts, id: :uuid do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -15,9 +15,12 @@ class DeviseCreateAuthAdminAccounts < ActiveRecord::Migration[6.1]
       t.datetime :remember_created_at
 
       t.timestamps null: false
+
+      # my
+      t.string :role, default: 'common', null: false
     end
 
-    add_index :auth_admin_accounts, :email,                unique: true
-    add_index :auth_admin_accounts, :reset_password_token, unique: true
+    add_index :accounts, :email,                unique: true
+    add_index :accounts, :reset_password_token, unique: true
   end
 end

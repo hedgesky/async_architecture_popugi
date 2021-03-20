@@ -16,7 +16,7 @@ Doorkeeper.configure do
   # every time somebody will try to access the admin web interface.
   #
   admin_authenticator do
-    unless current_auth_admin_account
+    unless current_account&.admin?
       redirect_to new_auth_admin_account_session_path
     end
   end

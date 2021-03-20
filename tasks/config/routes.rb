@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get '/login' => 'sessions#new'
+  get '/logout' => 'sessions#destroy'
+
+  get '/auth/beak/callback', to: 'sessions#create'
+
   resources :tasks do
     collection do
       post :assign
@@ -9,7 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get :login, to: 'fake_auth#login'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root 'tasks#index'

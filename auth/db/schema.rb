@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_14_210748) do
+ActiveRecord::Schema.define(version: 2021_03_20_233539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_03_14_210748) do
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
-    t.bigint "resource_owner_id", null: false
+    t.string "resource_owner_id", null: false
     t.bigint "application_id", null: false
     t.string "token", null: false
     t.integer "expires_in", null: false
@@ -39,12 +39,11 @@ ActiveRecord::Schema.define(version: 2021_03_14_210748) do
     t.datetime "revoked_at"
     t.string "scopes", default: "", null: false
     t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
-    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
   end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
-    t.bigint "resource_owner_id"
+    t.string "resource_owner_id"
     t.bigint "application_id", null: false
     t.string "token", null: false
     t.string "refresh_token"

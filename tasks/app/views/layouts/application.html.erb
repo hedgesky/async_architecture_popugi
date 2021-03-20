@@ -18,12 +18,25 @@
 
     <hr />
 
-    <h2>Actions</h2>
-    <p>
-      <%= link_to 'Assign tasks', assign_tasks_path, method: :post %>
-    </p>
+    <h2>Current account</h2>
+
+    <b>Email:</b> <%= current_account.email %>
+
     <p>
       <%= link_to 'My tasks', my_tasks_path %>
+    </p>
+    <hr />
+
+    <h2>Actions</h2>
+
+    <% if current_account.allowed_to_assign? %>
+      <p>
+        <%= link_to 'Assign tasks', assign_tasks_path, method: :post %>
+      </p>
+    <% end %>
+
+    <p>
+      <%= link_to 'Log out', '/logout' %>
     </p>
   </body>
 </html>

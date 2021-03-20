@@ -7,7 +7,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    Account.find_by(id: session[:user_id]) || raise('Invalid user id')
+    current_account || raise('asd')
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -17,7 +17,7 @@ Doorkeeper.configure do
   #
   admin_authenticator do
     unless current_account&.admin?
-      redirect_to new_auth_admin_account_session_path
+      redirect_to new_account_session_path
     end
   end
 
@@ -221,7 +221,7 @@ Doorkeeper.configure do
   # For more information go to
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
-  # default_scopes  :public
+  default_scopes  :public
   # optional_scopes :write, :update
 
   # Allows to restrict only certain scopes for grant_type.

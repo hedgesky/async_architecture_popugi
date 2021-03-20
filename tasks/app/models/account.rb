@@ -1,10 +1,11 @@
 # not an AR model!
-class User
-  attr_reader :id, :name
+class Account
+  attr_reader :id, :email, :role
 
-  def initialize(id, name)
+  def initialize(id:, email:, role:)
     @id = id
-    @name = name
+    @email = email
+    @role = role
   end
 
   def self.all
@@ -19,5 +20,9 @@ class User
 
   def self.find_by(id:)
     all.detect { |user| user.id == id }
+  end
+
+  def allowed_to_assign?
+    role.to_s == 'manager' || role.to_s == 'admin'
   end
 end

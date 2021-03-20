@@ -1,6 +1,16 @@
 class AccountsController < ApplicationController
-  before_action :authorize!
+  before_action :authorize!, except: :current
   before_action :set_account, only: [:edit, :update, :destroy]
+
+  def current
+    account = Account.find(doorkeeper_token.resource_owner_id)
+
+    render json: {
+      id: account.id,
+      email: account.email,
+      role: account.role
+    }
+  end
 
   def index
     @accounts = Account.all

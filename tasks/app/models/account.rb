@@ -21,8 +21,4 @@ class Account
   def self.find_by(id:)
     all.detect { |user| user.id == id }
   end
-
-  def allowed_to_assign?
-    role.to_s == 'manager' || role.to_s == 'admin'
-  end
 end

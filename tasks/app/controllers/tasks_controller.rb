@@ -50,8 +50,8 @@ class TasksController < ApplicationController
   end
 
   def my
-    if current_user
-      @tasks = FetchUserTasks.new(current_user).call
+    if current_account
+      @tasks = FetchUserTasks.new(current_account).call
     else
       redirect_to tasks_url, alert: 'Use user_id query param to authenticate'
     end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get '/login' => 'sessions#new'
-  get '/logout' => 'sessions#destroy'
+  get '/login' => 'sessions#new', as: :login
+  get '/logout' => 'sessions#destroy', as: :logout
 
   get '/auth/beak/callback', to: 'sessions#create'
 

@@ -22,11 +22,7 @@ module OmniAuth
       uid { raw_info['id'] }
 
       info do
-        {
-          id: raw_info['id']
-          email: raw_info['email'],
-          role: raw_info['role']
-        }
+        { token: access_token }
       end
 
       def raw_info

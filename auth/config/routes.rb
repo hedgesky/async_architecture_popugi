@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+  devise_for :accounts, controllers: { sessions: 'accounts/sessions' }
+
   resources :accounts, except: :show do
     get :current, on: :collection
   end
 
   use_doorkeeper
 
-  root to: 'accounts#index'
+  get '/not_authorized' => 'not_authorized#index'
+
+  root to: 'static#not_authorized'
 end

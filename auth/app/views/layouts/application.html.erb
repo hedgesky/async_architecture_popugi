@@ -17,6 +17,11 @@
     <br>
 
     <% if current_account&.admin? %>
+      <hr>
+
+      <p>
+        <%= link_to 'Accounts', accounts_path %>
+      </p>
       <%= link_to 'Apps', oauth_applications_path %>
     <% end %>
   </body>

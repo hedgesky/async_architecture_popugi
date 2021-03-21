@@ -24,7 +24,7 @@
   <div class="field">
     <%= form.label :role %>
     <%=
-      form.select :role, options_for_select([["Common", "common"], ["Accountant", "accountant"], ["Manager", "manager"], ["Admin", "admin"]])
+      form.select :role, options_for_select(["common", "accountant", "manager", "admin"], account.role)
     %>
   </div>
 

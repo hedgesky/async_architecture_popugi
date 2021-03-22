@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy complete ]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    @tasks = Task.order(created_at: :desc).includes(:assignee)
   end
 
   def show
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
   def my
     if current_account
-      @tasks = FetchUserTasks.new(current_account).call
+      @tasks = FetchUserTasks.new(current_account).call.includes(:assignee)
     else
       redirect_to tasks_url, alert: 'Use user_id query param to authenticate'
     end

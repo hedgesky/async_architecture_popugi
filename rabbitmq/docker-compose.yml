@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  db:
+    image: rabbitmq
+    hostname: 'bunny'
+    ports:
+      - '5672:5672'

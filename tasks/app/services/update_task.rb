@@ -5,11 +5,8 @@ class UpdateTask
   end
 
   def call
-    @task.assign_attributes(@attributes)
-    assignee_changed = @task.assignee_id_changed?
-
-    if @task.save
-      NotifyAssignee.call(task: @task) if assignee_changed
+    if @task.update(@attributes)
+      NotifyAssignee.call(task: @task)
       true
     else
       false

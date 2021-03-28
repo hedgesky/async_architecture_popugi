@@ -4,18 +4,16 @@ class SessionsController < ActionController::Base
   def new
   end
 
+  # Store token in session: we'll use it later to obtain fresh account data on each
+  # request through the auth service
   def create
-    auth_data = request.env['omniauth.auth']
-    session[:account] = {
-      id: auth_data['uid'],
-      email: auth_data.dig('info', 'email'),
-      role: auth_data.dig('info', 'role')
-    }
+    access_token = request.env['omniauth.auth'].dig('info', 'token')
+    session[:token_hash] = access_token.to_hash
     redirect_to root_url
   end
 
   def destroy
-    session[:account] = nil
+    session[:token_hash] = nil
     redirect_to root_url
   end
 end

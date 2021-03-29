@@ -34,7 +34,7 @@ class TasksController < ApplicationController
   end
 
   def complete
-    UpdateTask.new(task: @task, attributes: { state: :done }).call
+    CompleteTask.new(task: @task).call
     redirect_to my_tasks_url, notice: "Task marked as done"
   end
 

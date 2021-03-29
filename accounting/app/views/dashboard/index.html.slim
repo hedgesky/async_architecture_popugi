@@ -1,4 +1,6 @@
-h1 Balances
+h1 Dashboard
+
+h2 Balances
 
 table
   tr
@@ -9,6 +11,20 @@ table
     tr
       td= account.email
       td= balance_link(account.balance)
+
+hr
+
+h2 Earnings
+
+table
+  tr
+    th Date
+    th Earned
+  - @earned_by_dates.each do |date, earned|
+    tr
+      td= date
+      td= formatted_amount(earned)
+
 
 hr
 

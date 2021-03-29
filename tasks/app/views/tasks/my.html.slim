@@ -1,0 +1,23 @@
+p#notice= notice
+p#alert= alert
+
+h1 Tasks
+
+table
+  thead
+    tr
+      th Description
+      th State
+      th
+  tbody
+    - @tasks.each do |task|
+      tr
+        td= task.description
+        td= task.state
+        td
+          - if task.open?
+            = link_to "Complete", complete_task_path(task), method: :post
+
+= link_to 'New Task', new_task_path
+br
+= link_to 'Open tasks', tasks_path

@@ -1,4 +1,4 @@
-class CalcEarnings
+class CalcCompanyEarnings
   def initialize(date)
     @date = date
   end

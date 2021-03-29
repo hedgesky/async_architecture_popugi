@@ -20,6 +20,10 @@ class FinishDay
   end
 
   def send_payment(cycle)
-    PaymentTransaction.create!(amount: -cycle.balance.amount, cycle: cycle)
+    amount = cycle.balance.amount
+    PaymentTransaction.create!(amount: -amount, cycle: cycle)
+
+    email = cycle.balance.account.email
+    Rails.logger.info "Sent an email to #{email} with payment of #{amount}"
   end
 end

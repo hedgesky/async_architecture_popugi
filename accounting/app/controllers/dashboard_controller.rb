@@ -12,7 +12,7 @@ class DashboardController < ApplicationController
 
     hash = {}
     (week_ago .. current_day).each do |date|
-      hash[date] = CalcEarnings.new(date).call
+      hash[date] = CalcCompanyEarnings.new(date).call
     end
     hash
   end

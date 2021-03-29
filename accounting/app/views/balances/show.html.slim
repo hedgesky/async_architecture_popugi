@@ -1,0 +1,27 @@
+h1= "Balance of #{@balance.account.email}"
+
+p
+  strong Current amount:
+  = formatted_amount(@balance.amount)
+
+h3 Transactions
+
+table
+  tr
+    th Transaction type
+    th Amount
+    th Description
+
+  - @balance.transactions.each do |transaction|
+    tr
+      td= transaction.type
+      td= formatted_amount(transaction.amount)
+      td
+        - case transaction
+        - when TaskAssignedTransaction
+          strong Task description:
+          | &nbsp;
+          = transaction.task_assignment.task_description
+
+br /
+= link_to 'Balances', root_path

@@ -16,7 +16,7 @@ class ProcessTaskAssignment
       TaskAssignedTransaction.create!(
         task_assignment: assignment,
         amount: calc_cost,
-        balance: account.balance
+        cycle: account.balance.current_cycle
       )
     end
   end

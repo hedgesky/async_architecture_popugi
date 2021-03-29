@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_185931) do
+ActiveRecord::Schema.define(version: 2021_03_29_211945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 2021_03_29_185931) do
     t.string "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cycles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "balance_id", null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "state", default: 0
   end
 
   create_table "task_assignments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -45,7 +53,6 @@ ActiveRecord::Schema.define(version: 2021_03_29_185931) do
   end
 
   create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "balance_id", null: false
     t.integer "amount", null: false
     t.string "type", null: false
     t.text "description"
@@ -53,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_185931) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "task_completion_id"
     t.string "task_assignment_id"
+    t.string "cycle_id"
   end
 
 end

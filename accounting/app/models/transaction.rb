@@ -1,3 +1,3 @@
 class Transaction < ApplicationRecord
-  belongs_to :balance
+  belongs_to :cycle
 end

@@ -16,7 +16,7 @@ class ProcessTaskCompletion
       TaskCompletedTransaction.create!(
         task_completion: completion,
         amount: calc_cost,
-        balance: account.balance
+        cycle: account.balance.current_cycle
       )
     end
   end

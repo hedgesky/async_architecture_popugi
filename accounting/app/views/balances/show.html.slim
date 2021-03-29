@@ -22,6 +22,10 @@ table
           strong Task description:
           | &nbsp;
           = transaction.task_assignment.task_description
+        - when TaskCompletedTransaction
+          strong Task description:
+          | &nbsp;
+          = transaction.task_completion.task_description
 
 br /
 = link_to 'Balances', root_path

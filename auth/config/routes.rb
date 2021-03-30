@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   use_doorkeeper
 
-  get '/not_authorized' => 'not_authorized#index'
+  get '/not_authorized' => 'static#not_authorized'
 
   root to: 'static#not_authorized'
 end

@@ -4,6 +4,10 @@ p
   strong Current amount:
   = formatted_amount(@balance.amount)
 
+p
+  strong Earned today:
+  = formatted_amount(@earned_today)
+
 h3 Transactions
 
 table

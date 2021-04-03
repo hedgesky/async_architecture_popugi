@@ -5,7 +5,7 @@ class CreateAccount
 
   def call
     account = Account.create!(@account_data)
-    balance = Balance.create!(account: account, amount: 0)
+    balance = Balance.create!(account: account)
     account
   end
 end

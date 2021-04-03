@@ -26,7 +26,6 @@ gem 'slim-rails'
 gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-oauth2'
 gem 'bunny'
-gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]

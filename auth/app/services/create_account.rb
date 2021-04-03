@@ -3,7 +3,7 @@ class CreateAccount
     account = Account.new(attributes)
 
     if account.save
-      EventProducer.account_created(account)
+      Producers::AccountsCud.account_created(account)
       [true, account]
     else
       [false, account]

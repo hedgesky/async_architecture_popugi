@@ -1,5 +1,5 @@
 class Consumers::AccountingBe
-  QUEUE_NAME = 'be_accounting_to_accounting'
+  QUEUE_NAME = 'be_accounting_to_analytics'
   EXCHANGE_NAME = 'be-accounting'
 
   def initialize
@@ -19,11 +19,9 @@ class Consumers::AccountingBe
     Rails.logger.info "Processing '#{event_type}' event: #{payload}"
 
     case event_type
-    when 'payment_sent'
-      cycle = Cycle.find(payload['cycle_id'])
-      email = cycle.balance.account.email
-      amount = payload['amount']
-      Rails.logger.info "\n\nSent an email to #{email} with payment of #{amount}\n\n"
+    when 'task_cost_set'
+    when 'balance_cycle_closed'
+
     end
   rescue => e
     puts "Something happened during processing #{event_type}: #{e.class}: #{e.message}"

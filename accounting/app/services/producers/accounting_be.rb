@@ -19,6 +19,17 @@ class Producers::AccountingBe
     )
   end
 
+  def self.task_cost_set(task_data:, transaction:)
+    publish(
+      type: 'task_cost_set',
+      task_id: task_data.task_id,
+      task_description: task_data.description
+      assignee_id: task_data.assignee_id,
+      amount: transaction.amount,
+      date: transaction.cycle.date
+    )
+  end
+
   class << self
     private
 

@@ -13,12 +13,14 @@ class ProcessTaskAssignment
         account_id: task_data.assignee_id
       )
 
-      TaskAssignedTransaction.create!(
+      transaction = TaskAssignedTransaction.create!(
         task_assignment: assignment,
         amount: calc_cost,
         cycle: account.balance.current_cycle
       )
     end
+
+    Producers::AccountingBe.task_cost_set(task_data: task_data, transaction: transaction)
   end
 
   private

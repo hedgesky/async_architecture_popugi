@@ -16,7 +16,7 @@ table
     th Amount
     th Description
 
-  - @balance.transactions.each do |transaction|
+  - @transactions.each do |transaction|
     tr
       td= transaction.type
       td= formatted_amount(transaction.amount)

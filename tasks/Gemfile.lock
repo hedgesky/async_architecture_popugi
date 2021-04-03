@@ -249,6 +249,7 @@ DEPENDENCIES
   bunny
   dotenv-rails
   factory_bot_rails
+  faraday
   jbuilder (~> 2.7)
   listen (~> 3.3)
   omniauth (~> 1.9.1)

@@ -6,7 +6,6 @@ class UpdateTask
 
   def call
     if @task.update(@attributes)
-      NotifyAssignee.call(task: @task)
       true
     else
       false

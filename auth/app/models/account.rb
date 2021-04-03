@@ -16,4 +16,12 @@ class Account < ApplicationRecord
   def admin?
     role == 'admin'
   end
+
+  def phone
+    "+7 911 123 #{rand(10..99)} #{rand(10..99)}"
+  end
+
+  def slack
+    email.split('@').first
+  end
 end

@@ -20,15 +20,24 @@ table
     th Cost
     th Description
   tr
-    td Today
-    td
-    td
+    td Yesteday
+    - if @most_expensive_task_in_day
+      td= formatted_amount(@most_expensive_task_in_day.completion_cost)
+      td= @most_expensive_task_in_day.description
+    - else
+      td(colspan=2) ———
   tr
     td This week
-    td
-    td
+    - if @most_expensive_task_in_week
+      td= formatted_amount(@most_expensive_task_in_week.completion_cost)
+      td= @most_expensive_task_in_week.description
+    - else
+      td(colspan=2) ———
   tr
     td This month
-    td
-    td
+    - if @most_expensive_task_in_month
+      td= formatted_amount(@most_expensive_task_in_month.completion_cost)
+      td= @most_expensive_task_in_month.description
+    - else
+      td(colspan=2) ———
 

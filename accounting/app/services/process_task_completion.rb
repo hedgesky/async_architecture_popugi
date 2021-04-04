@@ -13,10 +13,14 @@ class ProcessTaskCompletion
         account_id: task_data.assignee_id
       )
 
-      TaskCompletedTransaction.create!(
+      transaction = TaskCompletedTransaction.create!(
         task_completion: completion,
         amount: calc_cost,
         cycle: account.balance.current_cycle
+      )
+
+      Producers::AccountingBe.task_completion_cost_set(
+        task_data: task_data, transaction: transaction
       )
     end
   end

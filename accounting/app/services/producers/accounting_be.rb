@@ -20,13 +20,13 @@ class Producers::AccountingBe
     )
   end
 
-  def self.task_cost_set(task_data:, transaction:)
+  def self.task_completion_cost_set(task_data:, transaction:)
     publish(
-      type: 'task_cost_set',
+      type: 'task_completion_cost_set',
       task_id: task_data.task_id,
       task_description: task_data.description,
       assignee_id: task_data.assignee_id,
-      amount: transaction.amount,
+      completion_cost: transaction.amount,
       date: transaction.cycle.date
     )
   end

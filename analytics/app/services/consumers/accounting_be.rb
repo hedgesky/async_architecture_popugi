@@ -19,15 +19,21 @@ class Consumers::AccountingBe
     Rails.logger.info "\n\nProcessing '#{event_type}' event: #{payload}\n\n"
 
     case event_type
-    when 'task_cost_set' then task_cost_set(payload)
+    when 'task_completion_cost_set' then task_completion_cost_set(payload)
     when 'balance_cycle_closed' then balance_cycle_closed(payload)
     end
   rescue => e
     puts "Something happened during processing #{event_type}: #{e.class}: #{e.message}"
   end
 
-  def task_cost_set(payload)
-
+  def task_completion_cost_set(payload)
+    ClosedTask.create(
+      task_id: payload['task_id'],
+      description: payload['task_description'],
+      assignee_id: payload['assignee_id'],
+      completion_cost: payload['completion_cost'],
+      date: payload['date']
+    )
   end
 
   def balance_cycle_closed(payload)

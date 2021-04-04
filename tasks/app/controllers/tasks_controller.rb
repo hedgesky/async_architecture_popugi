@@ -19,7 +19,7 @@ class TasksController < ApplicationController
     result, @task = CreateTask.new(attributes: task_params).call
 
     if result
-      redirect_to @task, notice: "Task was successfully created."
+      redirect_to tasks_url, notice: "Task was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

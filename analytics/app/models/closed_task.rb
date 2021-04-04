@@ -1,0 +1,2 @@
+class ClosedTask < ApplicationRecord
+end

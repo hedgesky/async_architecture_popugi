@@ -3,12 +3,12 @@ h1 Dashboard
 h2 Today earnings
 
 p
-  strong Total:
-  = @today_earnings
+  strong Total:&nbsp;
+  = formatted_amount(@today_earnings_total)
 
 p
-  strong Amount of popugs owing money:
-  = @total_earnings
+  strong Amount of popugs owing money:&nbsp;
+  = @popugs_owing_money_amount
 
 hr
 

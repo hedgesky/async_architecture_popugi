@@ -6,7 +6,8 @@ class Producers::AccountingBe
       type: 'balance_cycle_closed',
       transactions: transactions_data(cycle),
       account_id: cycle.balance.account_id,
-      total: cycle.total
+      total: cycle.total,
+      date: cycle.date
     )
   end
 
@@ -23,7 +24,7 @@ class Producers::AccountingBe
     publish(
       type: 'task_cost_set',
       task_id: task_data.task_id,
-      task_description: task_data.description
+      task_description: task_data.description,
       assignee_id: task_data.assignee_id,
       amount: transaction.amount,
       date: transaction.cycle.date

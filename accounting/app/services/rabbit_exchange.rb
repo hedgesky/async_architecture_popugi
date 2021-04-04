@@ -4,6 +4,7 @@ class RabbitExchange
   end
 
   def publish(payload)
+    Rails.logger.warn "\n\nPublishing event: #{payload}\n\n"
     @exchange.publish(payload.to_json)
   end
 end

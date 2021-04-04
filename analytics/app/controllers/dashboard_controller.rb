@@ -1,5 +1,8 @@
 class DashboardController < ApplicationController
   def index
+    earnings = PopugEarning.latest
+    @today_earnings_total = -earnings.sum(:amount)
+    @popugs_owing_money_amount = earnings.count { |t| t.amount.negative? }
   end
 
   private

@@ -1,12 +1,14 @@
-class EventProducer
+class Producers::TasksBe
+  EXCHANGE_NAME = 'be-tasks'
+
   def self.task_assigned(task)
-    send_message(
+    publish(
       type: 'task_assigned', task: to_attrs(task)
     )
   end
 
   def self.task_completed(task)
-    send_message(
+    publish(
       type: 'task_completed', task: to_attrs(task)
     )
   end
@@ -22,8 +24,12 @@ class EventProducer
       }
     end
 
-    def send_message(payload)
-      RabbitQueue.new('be-tasks').push(payload)
+    def exchange
+      @exchange ||= RabbitExchange.new(EXCHANGE_NAME)
+    end
+
+    def publish(payload)
+      exchange.publish(payload)
     end
   end
 end

@@ -3,7 +3,7 @@ class AssignOpenTasks
     Task.open.find_each do |task|
       attributes = { assignee_id: available_accounts.sample.id }
       UpdateTask.new(task: task, attributes: attributes).call
-      EventProducer.task_assigned(task)
+      Producers::TasksBe.task_assigned(task)
     end
   end
 

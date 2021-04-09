@@ -1,4 +1,6 @@
-class EventProducer
+class Producers::AccountsCud
+  EXCHANGE_NAME = 'cud_auth'
+
   def self.account_created(account)
     send_message(
       type: 'account_created', account: to_attrs(account)
@@ -24,9 +26,12 @@ class EventProducer
       account.attributes.slice('id', 'email')
     end
 
+    def exchange
+      @exchange ||= RabbitExchange.new(EXCHANGE_NAME)
+    end
+
     def send_message(payload)
-      # RabbitQueue.new('auth-tasks').push(payload)
-      RabbitQueue.new('auth-accounting').push(payload)
+      exchange.publish(payload)
     end
   end
 end

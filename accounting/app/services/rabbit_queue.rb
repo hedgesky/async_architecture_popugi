@@ -1,33 +1,24 @@
 class RabbitQueue
-  def initialize(name)
+  def initialize(name, exchange_name)
     @name = name
+    @exchange_name = exchange_name
   end
 
-  def push(payload)
-    with_queue do |queue|
-      queue.publish(payload.to_json)
+  def subscribe(&block)
+    conn = Bunny.new.tap(&:start)
+    channel = conn.create_channel
+
+    queue = channel.queue(@name, durable: true)
+    queue.bind(@exchange_name)
+
+    begin
+      queue.subscribe(block: false) do |_delivery_info, _properties, body|
+        block.call(JSON.parse(body))
+      end
+    rescue => e
+      Rails.logger.warn "Closing queue connection. #{e.class}: #{e.message}"
+      channel.close
+      conn.close
     end
-  end
-
-  def pop
-    with_queue do |queue|
-      _, _, payload = queue.pop
-      JSON.parse(payload) if payload
-    end
-  end
-
-  private
-
-  attr_reader :name
-
-  def with_queue
-    conn = Bunny.new
-    conn.start
-
-    queue = conn.create_channel.queue(name)
-    result = yield(queue)
-    conn.stop
-
-    result
   end
 end

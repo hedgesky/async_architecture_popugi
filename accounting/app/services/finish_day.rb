@@ -3,7 +3,7 @@ class FinishDay
     next_date = Cycle.date_of_next_cycle
 
     ApplicationRecord.transaction do
-      Cycle.open.each do |cycle|
+      Cycle.open.includes(:transactions).each do |cycle|
         close_cycle(cycle, next_date)
       end
     end
@@ -15,6 +15,7 @@ class FinishDay
     balance = cycle.balance
     send_payment(cycle) if cycle.balance.amount.positive?
     cycle.closed!
+    Producers::AccountingBe.balance_cycle_closed(cycle: cycle)
 
     balance.cycles.create!(date: next_date)
   end
@@ -23,7 +24,6 @@ class FinishDay
     amount = cycle.balance.amount
     PaymentTransaction.create!(amount: -amount, cycle: cycle)
 
-    email = cycle.balance.account.email
-    Rails.logger.info "Sent an email to #{email} with payment of #{amount}"
+    Producers::AccountingBe.payment_sent(cycle: cycle, amount: amount)
   end
 end

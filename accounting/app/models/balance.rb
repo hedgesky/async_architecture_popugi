@@ -4,7 +4,7 @@ class Balance < ApplicationRecord
   has_many :cycles
 
   def amount
-    transactions.sum(:amount)
+    transactions.map(&:amount).sum
   end
 
   def transactions

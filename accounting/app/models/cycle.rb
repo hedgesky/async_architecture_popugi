@@ -12,4 +12,8 @@ class Cycle < ApplicationRecord
   def self.date_of_next_cycle
     date_of_cyrrent_cycle + 1.day
   end
+
+  def total
+    transactions.map(&:amount).sum
+  end
 end

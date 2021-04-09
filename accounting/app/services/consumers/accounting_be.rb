@@ -16,6 +16,7 @@ class Consumers::AccountingBe
 
   def process_event(payload)
     event_type = payload['type']
+    Rails.logger.info "Processing '#{event_type}' event: #{payload}"
 
     case event_type
     when 'payment_sent'

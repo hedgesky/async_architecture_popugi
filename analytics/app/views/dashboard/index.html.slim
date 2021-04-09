@@ -1,0 +1,43 @@
+h1 Dashboard
+
+h2 Today earnings
+
+p
+  strong Total:&nbsp;
+  = formatted_amount(@today_earnings_total)
+
+p
+  strong Amount of popugs owing money:&nbsp;
+  = @popugs_owing_money_amount
+
+hr
+
+h2 Most expensive tasks
+
+table
+  tr
+    th
+    th Cost
+    th Description
+  tr
+    td Yesteday
+    - if @most_expensive_task_in_day
+      td= formatted_amount(@most_expensive_task_in_day.completion_cost)
+      td= @most_expensive_task_in_day.description
+    - else
+      td(colspan=2) ———
+  tr
+    td This week
+    - if @most_expensive_task_in_week
+      td= formatted_amount(@most_expensive_task_in_week.completion_cost)
+      td= @most_expensive_task_in_week.description
+    - else
+      td(colspan=2) ———
+  tr
+    td This month
+    - if @most_expensive_task_in_month
+      td= formatted_amount(@most_expensive_task_in_month.completion_cost)
+      td= @most_expensive_task_in_month.description
+    - else
+      td(colspan=2) ———
+

@@ -6,7 +6,8 @@ class Producers::AccountingBe
       type: 'balance_cycle_closed',
       transactions: transactions_data(cycle),
       account_id: cycle.balance.account_id,
-      total: cycle.total
+      total: cycle.total,
+      date: cycle.date
     )
   end
 
@@ -16,6 +17,17 @@ class Producers::AccountingBe
       cycle_id: cycle.id,
       account_id: cycle.balance.account_id,
       amount: amount
+    )
+  end
+
+  def self.task_completion_cost_set(task_data:, transaction:)
+    publish(
+      type: 'task_completion_cost_set',
+      task_id: task_data.task_id,
+      task_description: task_data.description,
+      assignee_id: task_data.assignee_id,
+      completion_cost: transaction.amount,
+      date: transaction.cycle.date
     )
   end
 
